@@ -1,7 +1,7 @@
 package ningenme.net.batch.jobs.blogJob;
 
 import lombok.RequiredArgsConstructor;
-import ningenme.net.batch.domain.model.StepName;
+import ningenme.net.batch.domain.value.StepName;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +16,8 @@ public class StepConfig {
 
     @Bean
     public Step HatenaStep() {
-        return stepBuilderFactory.get(StepName.HATENA_STEP.getValue()) //Step名を指定
-                                 .tasklet(hatenaTasklet) //実行するTaskletを指定
+        return stepBuilderFactory.get(StepName.HATENA_STEP.getValue())
+                                 .tasklet(hatenaTasklet)
                                  .build();
     }
 
