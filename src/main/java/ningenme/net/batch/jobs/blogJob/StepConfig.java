@@ -12,12 +12,20 @@ import org.springframework.context.annotation.Configuration;
 public class StepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
+    private final AmebaTasklet amebaTasklet;
     private final HatenaTasklet hatenaTasklet;
 
     @Bean
     public Step HatenaStep() {
         return stepBuilderFactory.get(StepName.HATENA_STEP.getValue())
                                  .tasklet(hatenaTasklet)
+                                 .build();
+    }
+
+    @Bean
+    public Step AmebaStep() {
+        return stepBuilderFactory.get(StepName.AMEBA_STEP.getValue())
+                                 .tasklet(amebaTasklet)
                                  .build();
     }
 

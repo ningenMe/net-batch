@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum StepName {
 
+    AMEBA_STEP("amebaStep"),
     HATENA_STEP("hatenaStep"),
     ;
 
