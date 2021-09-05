@@ -1,4 +1,4 @@
-package ningenme.net.batch.domain.model;
+package ningenme.net.batch.domain.value;
 
 import lombok.AccessLevel;
 import lombok.Getter;
