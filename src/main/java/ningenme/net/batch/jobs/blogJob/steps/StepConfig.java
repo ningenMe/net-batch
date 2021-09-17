@@ -1,7 +1,9 @@
-package ningenme.net.batch.jobs.blogJob;
+package ningenme.net.batch.jobs.blogJob.steps;
 
 import lombok.RequiredArgsConstructor;
 import ningenme.net.batch.domain.value.StepName;
+import ningenme.net.batch.jobs.blogJob.steps.AmebaTasklet;
+import ningenme.net.batch.jobs.blogJob.steps.HatenaTasklet;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
