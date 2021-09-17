@@ -4,6 +4,13 @@
 
 趣味開発のバッチ処理  
 
+```bash
+gradle clean build
+
+//blogJob
+java -Dspring.batch.job.names=blogJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
+```
+
 ## document
 TODO 
 
