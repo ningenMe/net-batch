@@ -10,6 +10,7 @@ public enum StepName {
 
     AMEBA_STEP("amebaStep"),
     HATENA_STEP("hatenaStep"),
+    QIITA_STEP("qiitaStep"),
     ;
 
     private final String value;
