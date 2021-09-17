@@ -1,4 +1,4 @@
-package ningenme.net.batch.jobs.blogJob;
+package ningenme.net.batch.jobs.blogJob.steps;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
