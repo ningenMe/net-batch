@@ -15,6 +15,7 @@ public class StepConfig {
     private final AmebaTasklet amebaTasklet;
     private final HatenaTasklet hatenaTasklet;
     private final QiitaTasklet qiitaTasklet;
+    private final DiaryTasklet diaryTasklet;
 
     @Bean
     public Step HatenaStep() {
@@ -34,6 +35,13 @@ public class StepConfig {
     public Step QiitaStep() {
         return stepBuilderFactory.get(StepName.QIITA_STEP.getValue())
                                  .tasklet(qiitaTasklet)
+                                 .build();
+    }
+
+    @Bean
+    public Step DiaryStep() {
+        return stepBuilderFactory.get(StepName.DIARY_STEP.getValue())
+                                 .tasklet(diaryTasklet)
                                  .build();
     }
 

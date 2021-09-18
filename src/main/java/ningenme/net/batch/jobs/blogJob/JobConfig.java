@@ -21,12 +21,14 @@ public class JobConfig {
     @Bean
     public Job helloWorldJob(@Qualifier("AmebaStep") Step amebaStep,
                              @Qualifier("HatenaStep") Step hatenaStep,
-                             @Qualifier("QiitaStep") Step qiitaStep) {
+                             @Qualifier("QiitaStep") Step qiitaStep,
+                             @Qualifier("DiaryStep") Step diaryStep) {
         return jobBuilderFactory.get(JobName.BLOG_JOB.getValue())
                                 .incrementer(new RunIdIncrementer())
                                 .start(amebaStep)
                                 .next(hatenaStep)
                                 .next(qiitaStep)
+                                .next(diaryStep)
                                 .build();
     }
 
