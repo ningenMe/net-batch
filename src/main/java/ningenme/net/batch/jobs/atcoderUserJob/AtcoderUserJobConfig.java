@@ -1,4 +1,4 @@
-package ningenme.net.batch.jobs.blogJob;
+package ningenme.net.batch.jobs.atcoderUserJob;
 
 import lombok.RequiredArgsConstructor;
 import ningenme.net.batch.domain.value.JobName;
@@ -14,22 +14,15 @@ import org.springframework.context.annotation.Configuration;
 @EnableBatchProcessing
 @Configuration
 @RequiredArgsConstructor
-public class JobConfig {
+public class AtcoderUserJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
     @Bean
-    public Job helloWorldJob(@Qualifier("AmebaStep") Step amebaStep,
-                             @Qualifier("HatenaStep") Step hatenaStep,
-                             @Qualifier("QiitaStep") Step qiitaStep,
-                             @Qualifier("DiaryStep") Step diaryStep) {
-        return jobBuilderFactory.get(JobName.BLOG_JOB.getValue())
+    public Job AtcoderUserJob(@Qualifier("AtcoderUserPublishStep") Step atcoderUserPublishStep) {
+        return jobBuilderFactory.get(JobName.ATCODER_USER_JOB.getValue())
                                 .incrementer(new RunIdIncrementer())
-                                .start(amebaStep)
-                                .next(hatenaStep)
-                                .next(qiitaStep)
-                                .next(diaryStep)
+                                .start(atcoderUserPublishStep)
                                 .build();
     }
-
 }

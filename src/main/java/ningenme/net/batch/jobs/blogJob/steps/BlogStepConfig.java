@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
 @Configuration
-public class StepConfig {
+public class BlogStepConfig {
 
     private final StepBuilderFactory stepBuilderFactory;
     private final AmebaTasklet amebaTasklet;
