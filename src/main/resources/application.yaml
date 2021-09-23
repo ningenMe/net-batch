@@ -1,8 +1,14 @@
 server:
-  port: 8080
+    port: 8080
 spring:
-  datasource:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    datasource:
+        url: ${MYSQL_URL}
+        username: ${MYSQL_USER}
+        password: ${MYSQL_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+net:
+    batch:
+        sqs:
+            user-access-key-id: ${SQS_USER_ACCESS_KEY_ID}
+            user-secret-access-key: ${SQS_USER_SECRET_ACCESS_KEY}
+            url-problem-sqs: ${SQS_URL_PROBLEM_SQS}

@@ -9,6 +9,8 @@ gradle clean build
 
 //blogJob
 java -Dspring.batch.job.names=blogJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
+//problemJob
+java -Dspring.batch.job.names=problemJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 //atcoderUserJob
 java -Dspring.batch.job.names=atcoderUserJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 ```

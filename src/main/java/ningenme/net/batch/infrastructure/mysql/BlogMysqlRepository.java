@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ningenme.net.batch.domain.entity.Blog;
-import ningenme.net.batch.infrastructure.mysql.dto.BlogDto;
+import ningenme.net.batch.infrastructure.mysql.dto.BlogMysqlDto;
 import ningenme.net.batch.infrastructure.mysql.mapper.BlogMysqlMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
@@ -21,7 +21,7 @@ public class BlogMysqlRepository {
         if (CollectionUtils.isEmpty(blogList)) {
             return;
         }
-        blogMysqlMapper.insert(BlogDto.getBlogDtoList(blogList));
+        blogMysqlMapper.insert(BlogMysqlDto.getBlogDtoList(blogList));
     }
 
 }
