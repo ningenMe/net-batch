@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 public enum JobName {
 
     BLOG_JOB("blogJob"),
+    ATCODER_USER_JOB("atcoderUserJob"),
     ;
 
     private final String value;

@@ -12,6 +12,7 @@ public enum StepName {
     HATENA_STEP("hatenaStep"),
     QIITA_STEP("qiitaStep"),
     DIARY_STEP("diaryStep"),
+    ATCODER_USER_PUBLISH_STEP("atcoderUserPublishStep"),
     ;
 
     private final String value;
