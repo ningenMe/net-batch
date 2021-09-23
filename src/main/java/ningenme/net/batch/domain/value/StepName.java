@@ -12,6 +12,9 @@ public enum StepName {
     HATENA_STEP("hatenaStep"),
     QIITA_STEP("qiitaStep"),
     DIARY_STEP("diaryStep"),
+
+    PROBLEM_SUBSCRIBE_STEP("problemSubscribeStep"),
+
     ATCODER_USER_PUBLISH_STEP("atcoderUserPublishStep"),
     ;
 
