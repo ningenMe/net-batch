@@ -1,8 +1,9 @@
 # net-batch
+
 [![ci-test](https://github.com/ningenMe/net-batch/actions/workflows/ci-test.yml/badge.svg)](https://github.com/ningenMe/net-batch/actions/workflows/ci-test.yml)
 [![cd-resource-push](https://github.com/ningenMe/net-batch/actions/workflows/cd-resource-push.yml/badge.svg)](https://github.com/ningenMe/net-batch/actions/workflows/cd-resource-push.yml)
 
-趣味開発のバッチ処理  
+趣味開発のバッチ処理
 
 ```bash
 gradle clean build
@@ -13,12 +14,16 @@ java -Dspring.batch.job.names=blogJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar p
 java -Dspring.batch.job.names=problemJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 //atcoderUserJob
 java -Dspring.batch.job.names=atcoderUserJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
+//comicPageJob
+java -Dspring.batch.job.names=comicPageJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 ```
 
 ## document
-TODO 
+
+TODO
 
 ## architecture
+
 [system diagrms](https://ningenme.net/systems)
 
 |            |      architecuture             |  

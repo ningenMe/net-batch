@@ -15,6 +15,8 @@ public enum StepName {
 
     PROBLEM_SUBSCRIBE_STEP("problemSubscribeStep"),
 
+    COMIC_PAGE_STEP("comicPageStep"),
+
     ATCODER_USER_PUBLISH_STEP("atcoderUserPublishStep"),
     ;
 

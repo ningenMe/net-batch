@@ -11,6 +11,7 @@ public enum JobName {
     BLOG_JOB("blogJob"),
     PROBLEM_JOB("problemJob"),
     ATCODER_USER_JOB("atcoderUserJob"),
+    COMIC_PAGE_JOB("comicPageJob"),
     ;
 
     private final String value;
