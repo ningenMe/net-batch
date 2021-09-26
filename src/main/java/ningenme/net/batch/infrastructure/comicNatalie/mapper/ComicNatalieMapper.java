@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ningenme.net.batch.infrastructure.comicNatalie.dto.ComicComicNatalieDto;
 import ningenme.net.batch.infrastructure.comicNatalie.dto.PageComicNatalieDto;
+import org.javatuples.Triplet;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +12,7 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import java.util.AbstractMap;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,10 +54,11 @@ public class ComicNatalieMapper {
     public List<ComicComicNatalieDto> getComic(@NonNull final String url) {
         final List<ComicComicNatalieDto> comicComicNatalieDtoList = new ArrayList<>();
 
-        final List<AbstractMap.SimpleEntry<Elements, Elements>> comicElementList = getComicElementList(url);
-        for (final AbstractMap.SimpleEntry<Elements, Elements> comicElement : comicElementList) {
-            final String publisher = comicElement.getKey().text();
-            final List<String> comicStringList = Arrays.asList(comicElement.getValue().toString().split("<br>|<br/>"));
+        final List<Triplet<Elements, Elements, Elements>> comicElementList = getComicElementList(url);
+        for (final Triplet<Elements, Elements, Elements> triplet : comicElementList) {
+            final LocalDate date = getDate(triplet.getValue0().text());
+            final String publisher = triplet.getValue1().text();
+            final List<String> comicStringList = Arrays.asList(triplet.getValue2().toString().split("<br>|<br/>"));
             for (final String comicString : comicStringList) {
                 final Document document = Jsoup.parse(getHtml(comicString));
                 if (!document.hasText()) {
@@ -77,11 +79,21 @@ public class ComicNatalieMapper {
                     comicComicNatalieDto.setPublisher(publisher);
                     comicComicNatalieDto.setName(comicName);
                     comicComicNatalieDto.setCreatorList(filteredCreatorList);
+                    comicComicNatalieDto.setDate(date);
+                    if (ObjectUtils.isEmpty(publisher) || ObjectUtils.isEmpty(comicName)) {
+                        log.warn("comicUrl={}, publisher={}, comicName={}, creatorList={}", comicUrl, publisher, comicName, filteredCreatorList.toString());
+                    }
                 }
                 comicComicNatalieDtoList.add(comicComicNatalieDto);
             }
         }
         return comicComicNatalieDtoList;
+    }
+
+    private LocalDate getDate(@NonNull final String dateString) {
+        final List<String> tmpList = Arrays.asList(dateString.split("年|月|日"));
+        final String date = String.format("%04d-%02d-%02d", Integer.valueOf(tmpList.get(0)), Integer.valueOf(tmpList.get(1)), Integer.valueOf(tmpList.get(2)));
+        return LocalDate.parse(date);
     }
 
     private String getHtml(@NonNull final String comicString) {
@@ -123,10 +135,11 @@ public class ComicNatalieMapper {
                           .collect(Collectors.toList());
     }
 
-    private List<AbstractMap.SimpleEntry<Elements, Elements>> getComicElementList(@NonNull final String url) {
-        final List<AbstractMap.SimpleEntry<Elements, Elements>> entryList = new ArrayList<>();
+    private List<Triplet<Elements, Elements, Elements>> getComicElementList(@NonNull final String url) {
+        final List<Triplet<Elements, Elements, Elements>> entryList = new ArrayList<>();
         try {
             final Document document = Jsoup.connect(url).get();
+            final Elements dateElements = document.select("[class=NA_article_date]");
             final Elements elements = document.select("[class=NA_article_body]").first().children();
 
             Elements h2Elements = new Elements();
@@ -142,7 +155,7 @@ public class ComicNatalieMapper {
                     pElements = pTmp;
                 }
                 if (!h2Elements.isEmpty() && !pElements.isEmpty()) {
-                    entryList.add(new AbstractMap.SimpleEntry<>(h2Elements, pElements));
+                    entryList.add(new Triplet<>(dateElements, h2Elements, pElements));
                     h2Elements = new Elements();
                     pElements = new Elements();
                 }
