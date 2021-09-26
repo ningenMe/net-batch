@@ -42,6 +42,7 @@ public class ComicService {
                 creatorMysqlRepository.post(comicList);
                 relationCreatorComicMysqlRepository.post(comicList);
 
+                log.info("url={}", comicPage.getUrl().getValue());
                 log.info(comicList.size() + " comics were processed");
 
                 comicPageMysqlRepository.put(comicPage.toBuilder()
