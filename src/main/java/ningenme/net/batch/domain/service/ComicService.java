@@ -11,6 +11,7 @@ import ningenme.net.batch.infrastructure.mysql.CreatorMysqlRepository;
 import ningenme.net.batch.infrastructure.mysql.PublisherMysqlRepository;
 import ningenme.net.batch.infrastructure.mysql.RelationCreatorComicMysqlRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,18 +37,24 @@ public class ComicService {
         final List<ComicPage> comicPageList = comicPageMysqlRepository.get();
         for (final ComicPage comicPage : comicPageList) {
             try {
+                log.info("url = {} , name= {} , process start", comicPage.getUrl().getValue(), comicPage.getName());
                 final List<Comic> comicList = comicNatalieRepository.getComicList(comicPage.getUrl());
+
                 publisherMysqlRepository.post(comicList);
                 comicMysqlRepository.post(comicList);
                 creatorMysqlRepository.post(comicList);
                 relationCreatorComicMysqlRepository.post(comicList);
 
-                log.info("url={}", comicPage.getUrl().getValue());
-                log.info(comicList.size() + " comics were processed");
-
                 comicPageMysqlRepository.put(comicPage.toBuilder()
                                                       .processedTime(LocalDateTime.now())
                                                       .build());
+
+                if (CollectionUtils.isEmpty(comicList)) {
+                    log.error("0 comics were processed");
+                } else {
+                    log.info("{} comics were processed", comicList.size());
+                }
+
             } catch (Exception ex) {
                 log.error(ex.getMessage());
             }

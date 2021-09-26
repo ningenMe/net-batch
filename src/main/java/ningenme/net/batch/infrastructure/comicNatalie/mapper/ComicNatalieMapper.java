@@ -59,6 +59,7 @@ public class ComicNatalieMapper {
             final LocalDate date = getDate(triplet.getValue0().text());
             final String publisher = triplet.getValue1().text();
             final List<String> comicStringList = Arrays.asList(triplet.getValue2().toString().split("<br>|<br/>"));
+
             for (final String comicString : comicStringList) {
                 final Document document = Jsoup.parse(getHtml(comicString));
                 if (!document.hasText()) {
@@ -67,9 +68,13 @@ public class ComicNatalieMapper {
                 final String comicUrl = document.select("a").first().attr("href");
                 final String comicName = document.select("a").first().text();
 
-                final List<String> creatorList = getCreatorList(comicString);
+                List<String> creatorList = getCreatorList(comicString);
                 for (Element element : document.select("a")) {
-                    creatorList.add(element.select("[class=GAE_inlineArtist]").text());
+                    if (Objects.isNull(element) || !element.hasText() || element.select("[class=GAE_inlineArtist]").isEmpty()) {
+                        continue;
+                    }
+                    creatorList = Stream.concat(creatorList.stream(), Stream.of(element.select("[class=GAE_inlineArtist]").text()))
+                                        .collect(Collectors.toList());
                 }
                 final List<String> filteredCreatorList = getFilteredCreatorList(creatorList);
 
@@ -151,7 +156,7 @@ public class ComicNatalieMapper {
                 if (!h2Tmp.isEmpty()) {
                     h2Elements = h2Tmp;
                 }
-                if (!paTmp.isEmpty() && paTmp.toString().length() >= 30) {
+                if (!paTmp.isEmpty() && paTmp.toString().length() >= 30 && paTmp.text().length() >= 4) {
                     pElements = pTmp;
                 }
                 if (!h2Elements.isEmpty() && !pElements.isEmpty()) {
