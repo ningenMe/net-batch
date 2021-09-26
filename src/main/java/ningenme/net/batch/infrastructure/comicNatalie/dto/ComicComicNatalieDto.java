@@ -5,8 +5,10 @@ import ningenme.net.batch.domain.entity.Comic;
 import ningenme.net.batch.domain.value.ComicCreator;
 import ningenme.net.batch.domain.value.ComicName;
 import ningenme.net.batch.domain.value.ComicPublisher;
+import ningenme.net.batch.domain.value.PublishedDate;
 import ningenme.net.batch.domain.value.Url;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -15,11 +17,13 @@ public class ComicComicNatalieDto {
     private String publisher;
     private String name;
     private List<String> creatorList;
+    private LocalDate date;
 
     public Comic getComic() {
         return new Comic(Url.of(url),
                          ComicName.of(name),
                          ComicPublisher.of(publisher),
-                         ComicCreator.getComicCreator(creatorList));
+                         ComicCreator.getComicCreator(creatorList),
+                         PublishedDate.of(date));
     }
 }
