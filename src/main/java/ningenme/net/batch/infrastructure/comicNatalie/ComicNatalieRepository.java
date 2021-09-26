@@ -6,13 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import ningenme.net.batch.domain.entity.Comic;
 import ningenme.net.batch.domain.entity.ComicPage;
 import ningenme.net.batch.domain.value.Url;
-import ningenme.net.batch.infrastructure.comicNatalie.dto.ComicComicNatalieDto;
 import ningenme.net.batch.infrastructure.comicNatalie.dto.PageComicNatalieDto;
 import ningenme.net.batch.infrastructure.comicNatalie.mapper.ComicNatalieMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Repository
@@ -49,9 +49,18 @@ public class ComicNatalieRepository {
             Thread.sleep(10000L);
             return comicNatalieMapper.getComic(url.getValue())
                                      .stream()
-                                     .map(ComicComicNatalieDto::getComic)
+                                     .map(comicComicNatalieDto -> {
+                                         try {
+                                             return comicComicNatalieDto.getComic();
+                                         } catch (Exception ex) {
+                                             log.error(ex.getMessage());
+                                             return null;
+                                         }
+                                     })
+                                     .filter(Objects::nonNull)
                                      .collect(Collectors.toList());
         } catch (Exception exception) {
+            log.error(exception.getMessage());
         }
         return List.of();
     }
