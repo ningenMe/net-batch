@@ -12,6 +12,10 @@ public class PageComicNatalieDto {
     private String name;
 
     public ComicPage getComicPage() {
-        return new ComicPage(Url.of(url), name, LocalDateTime.now().minusYears(1L));
+        return ComicPage.builder()
+                        .url(Url.of(url))
+                        .name(name)
+                        .processedTime(LocalDateTime.now().minusYears(1L))
+                        .build();
     }
 }

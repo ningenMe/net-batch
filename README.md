@@ -16,6 +16,8 @@ java -Dspring.batch.job.names=problemJob -jar build/libs/batch-0.0.1-SNAPSHOT.ja
 java -Dspring.batch.job.names=atcoderUserJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 //comicPageJob
 java -Dspring.batch.job.names=comicPageJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
+//comicJob
+java -Dspring.batch.job.names=comicJob -jar build/libs/batch-0.0.1-SNAPSHOT.jar param=tmp
 ```
 
 ## document
