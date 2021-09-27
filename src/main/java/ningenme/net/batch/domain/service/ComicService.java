@@ -31,7 +31,6 @@ public class ComicService {
     private final CreatorMysqlRepository creatorMysqlRepository;
     private final WorkMysqlRepository workMysqlRepository;
     private final RelationCreatorWorkMysqlRepository relationCreatorWorkMysqlRepository;
-//    private final RelationCreatorComicMysqlRepository relationCreatorComicMysqlRepository;
 
     public void batchComicPage() {
         final List<ComicPage> comicPageList = comicNatalieRepository.getComicPageList();
