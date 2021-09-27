@@ -50,7 +50,7 @@ public class ComicService {
                                                       .build());
 
                 if (CollectionUtils.isEmpty(comicList)) {
-                    log.error("0 comics were processed");
+                    log.error("url = {}, 0 comics were processed", comicPage.getUrl().getValue());
                 } else {
                     log.info("{} comics were processed", comicList.size());
                 }
