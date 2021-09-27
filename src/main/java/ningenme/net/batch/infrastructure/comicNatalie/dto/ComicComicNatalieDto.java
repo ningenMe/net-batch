@@ -2,10 +2,10 @@ package ningenme.net.batch.infrastructure.comicNatalie.dto;
 
 import lombok.Data;
 import ningenme.net.batch.domain.entity.Comic;
-import ningenme.net.batch.domain.value.ComicCreator;
 import ningenme.net.batch.domain.value.ComicName;
-import ningenme.net.batch.domain.value.ComicPublisher;
+import ningenme.net.batch.domain.value.CreatorName;
 import ningenme.net.batch.domain.value.PublishedDate;
+import ningenme.net.batch.domain.value.PublisherName;
 import ningenme.net.batch.domain.value.Url;
 
 import java.time.LocalDate;
@@ -22,8 +22,8 @@ public class ComicComicNatalieDto {
     public Comic getComic() {
         return new Comic(Url.of(url),
                          ComicName.of(name),
-                         ComicPublisher.of(publisher),
-                         ComicCreator.getComicCreator(creatorList),
+                         PublisherName.of(publisher),
+                         CreatorName.getComicCreator(creatorList),
                          PublishedDate.of(date));
     }
 }

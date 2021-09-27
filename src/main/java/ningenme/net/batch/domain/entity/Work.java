@@ -3,30 +3,21 @@ package ningenme.net.batch.domain.entity;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import ningenme.net.batch.domain.value.ComicName;
 import ningenme.net.batch.domain.value.CreatorName;
-import ningenme.net.batch.domain.value.PublishedDate;
 import ningenme.net.batch.domain.value.PublisherName;
-import ningenme.net.batch.domain.value.Url;
 import ningenme.net.batch.domain.value.WorkName;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "of")
 @Data
-public class Comic {
+public class Work {
+
     @NonNull
-    private final Url url;
-    @NonNull
-    private final ComicName comicName;
+    private final WorkName workName;
     @NonNull
     private final PublisherName publisherName;
     @NonNull
     private final List<CreatorName> creatorNameList;
-    @NonNull
-    private final PublishedDate publishedDate;
 
-    public Work getWork() {
-        return Work.of(WorkName.of(comicName), publisherName, creatorNameList);
-    }
 }
