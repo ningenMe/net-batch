@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 @Data
 @RequiredArgsConstructor(staticName = "of")
-public class ComicCreator {
+public class CreatorName {
     private final String value;
 
-    public static List<ComicCreator> getComicCreator(@NonNull final List<String> comicCreatorList) {
-        return comicCreatorList.stream().map(ComicCreator::of).collect(Collectors.toList());
+    public static List<CreatorName> getComicCreator(@NonNull final List<String> comicCreatorList) {
+        return comicCreatorList.stream().map(CreatorName::of).collect(Collectors.toList());
     }
 }

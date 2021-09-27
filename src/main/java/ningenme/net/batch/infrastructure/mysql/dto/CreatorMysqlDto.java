@@ -12,7 +12,7 @@ public class CreatorMysqlDto {
     private String creatorName;
 
     public static List<CreatorMysqlDto> getCreatorMysqlDtoList(@NonNull final Comic comic) {
-        return comic.getComicCreatorList()
+        return comic.getCreatorNameList()
                     .stream()
                     .map(comicCreator -> {
                         CreatorMysqlDto creatorMysqlDto = new CreatorMysqlDto();

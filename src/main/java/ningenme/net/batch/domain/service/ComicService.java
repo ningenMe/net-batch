@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ningenme.net.batch.domain.entity.Comic;
 import ningenme.net.batch.domain.entity.ComicPage;
+import ningenme.net.batch.domain.entity.Work;
 import ningenme.net.batch.infrastructure.comicNatalie.ComicNatalieRepository;
 import ningenme.net.batch.infrastructure.mysql.ComicMysqlRepository;
 import ningenme.net.batch.infrastructure.mysql.ComicPageMysqlRepository;
 import ningenme.net.batch.infrastructure.mysql.CreatorMysqlRepository;
 import ningenme.net.batch.infrastructure.mysql.PublisherMysqlRepository;
-import ningenme.net.batch.infrastructure.mysql.RelationCreatorComicMysqlRepository;
+import ningenme.net.batch.infrastructure.mysql.RelationCreatorWorkMysqlRepository;
+import ningenme.net.batch.infrastructure.mysql.WorkMysqlRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +29,9 @@ public class ComicService {
     private final PublisherMysqlRepository publisherMysqlRepository;
     private final ComicMysqlRepository comicMysqlRepository;
     private final CreatorMysqlRepository creatorMysqlRepository;
-    private final RelationCreatorComicMysqlRepository relationCreatorComicMysqlRepository;
+    private final WorkMysqlRepository workMysqlRepository;
+    private final RelationCreatorWorkMysqlRepository relationCreatorWorkMysqlRepository;
+//    private final RelationCreatorComicMysqlRepository relationCreatorComicMysqlRepository;
 
     public void batchComicPage() {
         final List<ComicPage> comicPageList = comicNatalieRepository.getComicPageList();
@@ -39,11 +44,14 @@ public class ComicService {
             try {
                 log.info("url = {} , name= {} , process start", comicPage.getUrl().getValue(), comicPage.getName());
                 final List<Comic> comicList = comicNatalieRepository.getComicList(comicPage.getUrl());
+                final List<Work> workList = comicList.stream().map(Comic::getWork).collect(Collectors.toList());
 
                 publisherMysqlRepository.post(comicList);
-                comicMysqlRepository.post(comicList);
                 creatorMysqlRepository.post(comicList);
-                relationCreatorComicMysqlRepository.post(comicList);
+                workMysqlRepository.post(workList);
+
+                comicMysqlRepository.post(comicList);
+                relationCreatorWorkMysqlRepository.post(workList);
 
                 comicPageMysqlRepository.put(comicPage.toBuilder()
                                                       .processedTime(LocalDateTime.now())

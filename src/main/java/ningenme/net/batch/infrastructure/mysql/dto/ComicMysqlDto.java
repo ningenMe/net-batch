@@ -10,13 +10,13 @@ import java.time.LocalDate;
 public class ComicMysqlDto {
     private String url;
     private String comicName;
-    private String publisherName;
+    private String workName;
     private LocalDate publishedDate;
 
     public ComicMysqlDto(@NonNull final Comic comic) {
         url = comic.getUrl().getValue();
         comicName = comic.getComicName().getValue();
-        publisherName = comic.getComicPublisher().getValue();
+        workName = comic.getWork().getWorkName().getValue();
         publishedDate = comic.getPublishedDate().getValue();
     }
 }

@@ -11,6 +11,6 @@ public class PublisherMysqlDto {
     private String publisherName;
 
     public PublisherMysqlDto(@NonNull final Comic comic) {
-        publisherName = comic.getComicPublisher().getValue();
+        publisherName = comic.getPublisherName().getValue();
     }
 }
