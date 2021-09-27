@@ -13,7 +13,6 @@ import ningenme.net.batch.infrastructure.mysql.RelationCreatorComicMysqlReposito
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,12 +44,12 @@ public class ComicService {
                 creatorMysqlRepository.post(comicList);
                 relationCreatorComicMysqlRepository.post(comicList);
 
-                comicPageMysqlRepository.put(comicPage.toBuilder()
-                                                      .processedTime(LocalDateTime.now())
-                                                      .build());
+//                comicPageMysqlRepository.put(comicPage.toBuilder()
+//                                                      .processedTime(LocalDateTime.now())
+//                                                      .build());
 
                 if (CollectionUtils.isEmpty(comicList)) {
-                    log.error("0 comics were processed");
+                    log.error("url = {}, 0 comics were processed", comicPage.getUrl().getValue());
                 } else {
                     log.info("{} comics were processed", comicList.size());
                 }
