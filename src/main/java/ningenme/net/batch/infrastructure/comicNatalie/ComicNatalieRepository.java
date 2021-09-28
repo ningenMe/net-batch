@@ -54,6 +54,7 @@ public class ComicNatalieRepository {
                                              return comicComicNatalieDto.getComic();
                                          } catch (Exception ex) {
                                              log.error(ex.getMessage());
+                                             log.error(comicComicNatalieDto.toString());
                                              return null;
                                          }
                                      })
