@@ -12,11 +12,11 @@ public interface ComicMysqlMapper {
 
     @Insert(
         "<script>" +
-        "INSERT INTO comics (url,comic_name,work_id,published_date) VALUES " +
+        "INSERT INTO comics (isbn13,url,comic_name,work_id,published_date) VALUES " +
         "<foreach item='item' collection='comicMysqlDtoList' open='' separator=',' close=''>" +
-        "(#{item.url},#{item.comicName},(SELECT work_id FROM works WHERE work_name = #{item.workName}),#{item.publishedDate}) " +
+        "(#{item.isbn13},#{item.url},#{item.comicName},(SELECT work_id FROM works WHERE work_name = #{item.workName}),#{item.publishedDate}) " +
         "</foreach>" +
-        "ON DUPLICATE KEY UPDATE comic_name=VALUES(comic_name), work_id=VALUES(work_id), published_date=VALUES(published_date)" +
+        "ON DUPLICATE KEY UPDATE url=VALUES(url), comic_name=VALUES(comic_name), work_id=VALUES(work_id), published_date=VALUES(published_date)" +
         "</script>"
     )
     void insert(@Param("comicMysqlDtoList") List<ComicMysqlDto> comicMysqlDtoList);
