@@ -19,5 +19,5 @@ public interface BlogMysqlMapper {
         "ON DUPLICATE KEY UPDATE title=VALUES(title)" +
         "</script>"
     )
-    void insert(@Param("blodDtoList") List<BlogMysqlDto> blogMysqlDtoList);
+    void insert(@Param("blogMysqlDtoList") List<BlogMysqlDto> blogMysqlDtoList);
 }
